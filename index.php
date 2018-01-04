@@ -5,6 +5,11 @@ if (isset($conf['path_to_logfile'])
   && file_exists($conf['path_to_logfile'])
   && is_readable($conf['path_to_logfile'])) {
   $file_name = $conf['path_to_logfile'];
+  if (isset($conf['max_items']) && is_numeric($conf['max_items'])) {
+    $max_items = $conf['max_items'];
+  } else {
+    $max_items = 0; // it will display all items
+  }
 } else {
   $file_name = NULL;
 }
@@ -13,12 +18,6 @@ if (isset($conf['path_to_logfile'])
 <html>
 <head>
   <title>Speedlogs viewer</title>
-  <style>
-    textarea {
-      width: 650px;
-      height: 350px;
-    }
-  </style>
 </head>
 <body>
   <div>
@@ -33,16 +32,34 @@ if (isset($conf['path_to_logfile'])
   <?php
   } else {
     $file_content = file_get_contents($file_name);
-    $file_parsed  = json_decode($file_content);
+    $file_parsed  = json_decode($file_content, true);
     if (empty($file_parsed) || !is_array($file_parsed)):
   ?>
       <h1>No logs to display for the moment...</h1>
       <h2>The log file is empty.</h2>
-      <p>Something went wrong. The file exists, but it is empty or bad-formed.</p>
+      <p>
+        Something went wrong.
+        The file exists, but it is empty or bad-formed.
+      </p>
     <?php else: ?>
-      <p>Here will be the place of a nice graph!</p>
-      <p>Content of the <em><?= $file_name; ?></em> file:</p>
-      <textarea><?= $file_content; ?></textarea>
+      <ul>
+      <?php
+        if ($max_items > 0) {
+          $file_parsed = array_slice($file_parsed, -$max_items);
+        }
+      ?>
+
+      <?php foreach ($file_parsed as $item): ?>
+        <li>
+          <ul>
+            <li>Ping: <?= $item['ping']; ?> ms</li>
+            <li>Download: <?= $item['down']; ?> Mbps</li>
+            <li>Upload: <?= $item['up']; ?> Mbps</li>
+            <li>Time: <?= $item['time']; ?></li>
+          </ul>
+        </li>
+      <?php endforeach; ?>
+      </ul>
     <?php endif; ?>
   <?php } ?>
   </div>

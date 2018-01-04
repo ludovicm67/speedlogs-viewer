@@ -14,7 +14,8 @@ The following parameters are required:
   - `path_to_logfile`, wich indicates the path of the log file
     *(default value is `/var/log/ludovicm67_speedlogs.json`)*
 
-  - `max_items`, indicates the maximum number of items to display
+  - `max_items`, indicates the maximum number of items to display.
+    If it is set to `0`, it will display all possible items.
     *(default value is `3000`)*
 
 ## How to run it?
