@@ -13,9 +13,15 @@ if (isset($conf['path_to_logfile'])
 <html>
 <head>
   <title>Speedlogs viewer</title>
+  <style>
+    textarea {
+      width: 650px;
+      height: 350px;
+    }
+  </style>
 </head>
 <body>
-<?php if ($file_name === NULL): ?>
+<?php if (is_null($file_name)): ?>
   <div>
     <h1>No logs to display for the moment...</h1>
     <h2>The log file is not available for the moment.</h2>
@@ -27,8 +33,9 @@ if (isset($conf['path_to_logfile'])
   </div>
 <?php else: ?>
   <div>
-    Here will be the place of a nice graph!
-    <?= $file_name; ?>
+    <p>Here will be the place of a nice graph!</p>
+    <p>Content of the <em><?= $file_name; ?></em> file:</p>
+    <textarea><?= file_get_contents($file_name); ?></textarea>
   </div>
 <?php endif; ?>
 </body>
