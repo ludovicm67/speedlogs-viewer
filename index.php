@@ -20,6 +20,7 @@ if (isset($conf['path_to_logfile'])
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <title>Speedlogs viewer</title>
 </head>
 <body>
