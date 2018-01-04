@@ -16,7 +16,7 @@ The following parameters are required:
 
   - `max_items`, indicates the maximum number of items to display.
     If it is set to `0`, it will display all possible items.
-    *(default value is `4`)*
+    *(default value is `20`)*
 
 You can override the `max_items` property by passing it as a `GET` parameter.
 
