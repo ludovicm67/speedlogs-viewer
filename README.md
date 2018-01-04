@@ -20,7 +20,7 @@ The following parameters are required:
 ## How to run it?
 
 Just go to the directory of the project, and use the `php -S localhost:8080`
-command so that PHP can serve it at `http://localhost:8080/`.
+command so that PHP can serve it at http://localhost:8080/.
 
 If it works perfectly as desired, you can edit your Nginx or Apache
 configuration to serve it if you want.
