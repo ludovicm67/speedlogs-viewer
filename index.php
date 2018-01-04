@@ -21,8 +21,8 @@ if (isset($conf['path_to_logfile'])
   </style>
 </head>
 <body>
-<?php if (is_null($file_name)): ?>
   <div>
+  <?php if (is_null($file_name)) { ?>
     <h1>No logs to display for the moment...</h1>
     <h2>The log file is not available for the moment.</h2>
     <p>
@@ -30,13 +30,21 @@ if (isset($conf['path_to_logfile'])
       If the file specified in the configuration file really exists,
       please check the permissions.
     </p>
+  <?php
+  } else {
+    $file_content = file_get_contents($file_name);
+    $file_parsed  = json_decode($file_content);
+    if (empty($file_parsed) || !is_array($file_parsed)):
+  ?>
+      <h1>No logs to display for the moment...</h1>
+      <h2>The log file is empty.</h2>
+      <p>Something went wrong. The file exists, but it is empty or bad-formed.</p>
+    <?php else: ?>
+      <p>Here will be the place of a nice graph!</p>
+      <p>Content of the <em><?= $file_name; ?></em> file:</p>
+      <textarea><?= $file_content; ?></textarea>
+    <?php endif; ?>
+  <?php } ?>
   </div>
-<?php else: ?>
-  <div>
-    <p>Here will be the place of a nice graph!</p>
-    <p>Content of the <em><?= $file_name; ?></em> file:</p>
-    <textarea><?= file_get_contents($file_name); ?></textarea>
-  </div>
-<?php endif; ?>
 </body>
 </html>
