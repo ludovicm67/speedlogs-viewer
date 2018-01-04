@@ -10,6 +10,9 @@ if (isset($conf['path_to_logfile'])
   } else {
     $max_items = 0; // it will display all items
   }
+  if (isset($_GET['max_items']) && is_numeric($_GET['max_items'])) {
+    $max_items = $_GET['max_items'];
+  }
 } else {
   $file_name = NULL;
 }
