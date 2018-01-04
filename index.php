@@ -6,7 +6,7 @@ if (isset($conf['path_to_logfile'])
   && is_readable($conf['path_to_logfile'])) {
   $file_name = $conf['path_to_logfile'];
 } else {
-  $file_name = false;
+  $file_name = NULL;
 }
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ if (isset($conf['path_to_logfile'])
   <title>Speedlogs viewer</title>
 </head>
 <body>
-<?php if ($file_name === false): ?>
+<?php if ($file_name === NULL): ?>
   <div>
     <h1>No logs to display for the moment...</h1>
     <h2>The log file is not available for the moment.</h2>
